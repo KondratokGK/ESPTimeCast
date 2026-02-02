@@ -23,8 +23,8 @@
 #define HARDWARE_TYPE MD_MAX72XX::FC16_HW
 #define MAX_DEVICES 4
 #define CLK_PIN 14   //D5
-#define CS_PIN 13    //D7
-#define DATA_PIN 15  //D8
+#define CS_PIN 16    //D7
+#define DATA_PIN 12  //D8
 
 #ifdef ESP8266
 WiFiEventHandler mConnectHandler;
@@ -956,7 +956,7 @@ void setupWebServer() {
 
     request->onDisconnect([]() {
       Serial.println(F("[WEBSERVER] Client disconnected, rebooting ESP..."));
-      saveUptime();
+      //saveUptime();
       delay(100);  // ensure file is written
       ESP.restart();
     });
@@ -1000,7 +1000,7 @@ void setupWebServer() {
       request->send(200, "application/json", response);
       request->onDisconnect([]() {
         Serial.println(F("[WEBSERVER] Rebooting after restore..."));
-        saveUptime();
+        //saveUptime();
         delay(100);  // ensure file is written
         ESP.restart();
       });
@@ -2453,7 +2453,7 @@ void setup() {
   lastSwitch = millis() - (clockDuration - 500);
   lastColonBlink = millis();
   bootMillis = millis();
-  saveUptime();
+  //saveUptime();
 }
 
 void ensureHtmlFileExists() {
@@ -3940,7 +3940,7 @@ void loop() {
     lastUptimeLog = currentMillis;
     Serial.printf("[UPTIME] Runtime: %s (total %.2f hours)\n",
                   formatUptime(currentTotal).c_str(), currentTotal / 3600.0);
-    saveUptime();  // Save accumulated uptime every 10 minutes
+    //saveUptime();  // Save accumulated uptime every 10 minutes
   }
   yield();
 }
